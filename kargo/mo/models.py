@@ -23,7 +23,7 @@ class Posylka(models.Model):
 
     def __str__(self) -> str:
         return self.pos_id
-    
+
     class Meta:
         verbose_name = 'Посылка'
         verbose_name_plural = 'Посылки'

@@ -26,7 +26,8 @@ SECRET_KEY = '(%msfa#s4_#3ulzi*k4v7xtvziwk-ntffpbogvt1m^h%a9_ycx'
 DEBUG = True
 
 ALLOWED_HOSTS = ["infriends.kz",
-                 "127.0.0.1",]
+                 "127.0.0.1",
+                 "77.240.39.15",]
 
 
 # Application definition
