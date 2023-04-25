@@ -25,7 +25,8 @@ SECRET_KEY = '(%msfa#s4_#3ulzi*k4v7xtvziwk-ntffpbogvt1m^h%a9_ycx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["infriends.kz",]
+ALLOWED_HOSTS = ["infriends.kz",
+                 "127.0.0.1",]
 
 
 # Application definition
@@ -104,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
