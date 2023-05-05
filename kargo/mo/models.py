@@ -36,3 +36,13 @@ class Question(models.Model):
     class Meta:
         verbose_name = 'Вопрос'
         verbose_name_plural = 'Вопросы'
+
+
+class Users(models.Model):
+    login = models.CharField(max_length=50, help_text='Логин')
+    password = models.CharField(max_length=50, help_text='Пароль')
+    name = models.CharField(max_length=50, help_text='Имя')
+    
+    class Meta:
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'
