@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
-from mo.views import CityViewSet, QuestionViewSet, PosylkaViewSet
+from mo.views import CityViewSet, QuestionViewSet, PosylkaViewSet, login
 from rest_framework.routers import DefaultRouter
 
 cityRouter = DefaultRouter()
@@ -32,5 +32,6 @@ urlpatterns = [
     url('', include(cityRouter.urls), name='city'),
     url('', include(questionRouter.urls), name='question'),
     url('', include(posylkaRouter.urls), name='posylka'),
+    path('login/', login),
     path('admin/', admin.site.urls),
 ]

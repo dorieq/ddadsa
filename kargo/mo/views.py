@@ -1,10 +1,12 @@
+import json
+from django.http import HttpResponse
 from rest_framework import viewsets
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 
-from mo.models import City, Posylka, Question
+from mo.models import City, Posylka, Question, Users
 from mo.serializers import CitySerializer, PosylkaSerializer, QuestionSerializer
 
 class CityViewSet(viewsets.ViewSet):
@@ -77,3 +79,13 @@ class PosylkaViewSet(viewsets.ViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+def login(request):
+    body = json.loads(request.body)
+    login = body['login']
+    password = body['password']
+    search = Users.objects.filter(login=login, password=password).first()
+    if not search:
+        return HttpResponse("Bad Login", status=status.HTTP_400_BAD_REQUEST)
+    return HttpResponse("Ok", status=status.HTTP_200_OK)

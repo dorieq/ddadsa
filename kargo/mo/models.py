@@ -42,7 +42,12 @@ class Users(models.Model):
     login = models.CharField(max_length=50, help_text='Логин')
     password = models.CharField(max_length=50, help_text='Пароль')
     name = models.CharField(max_length=50, help_text='Имя')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city', help_text='Город', null=True)
     
     class Meta:
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
+
+    def __str__(self):
+        return self.name
+    

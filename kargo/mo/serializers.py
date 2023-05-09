@@ -21,3 +21,7 @@ class PosylkaSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.Serializer):
     question = serializers.CharField(max_length=50)
     answer = serializers.CharField(max_length=50)
+
+class UsersSerializer(serializers.Serializer):
+    login = serializers.CharField(max_length=50)
+    password = serializers.CharField(max_length=50)
