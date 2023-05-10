@@ -25,9 +25,7 @@ SECRET_KEY = '(%msfa#s4_#3ulzi*k4v7xtvziwk-ntffpbogvt1m^h%a9_ycx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["api.infriends.kz",
-                 "127.0.0.1",
-                 "77.240.39.15",]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
