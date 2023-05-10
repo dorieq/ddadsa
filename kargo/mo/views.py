@@ -43,7 +43,8 @@ class PosylkaViewSet(viewsets.ViewSet):
     queryset = Posylka.objects.all()
 
     def list(self, request):
-        queryset = Posylka.objects.all()
+        user = request.GET['user']
+        queryset = Posylka.objects.filter(user_id=user)
         serializer = PosylkaSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -52,14 +53,6 @@ class PosylkaViewSet(viewsets.ViewSet):
         user = get_object_or_404(queryset, pk=pk)
         serializer = PosylkaSerializer(user)
         return Response(serializer.data)
-    
-    def post(self, request, *args, **kwargs):
-        serializer = PosylkaSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
     def put(self, request, pk, format=None):
         queryset = Posylka.objects.all()
@@ -87,5 +80,21 @@ def login(request):
     password = body['password']
     search = Users.objects.filter(login=login, password=password).first()
     if not search:
-        return HttpResponse("Bad Login", status=status.HTTP_400_BAD_REQUEST)
-    return HttpResponse("Ok", status=status.HTTP_200_OK)
+        return HttpResponse("Bad Login or password", status=status.HTTP_400_BAD_REQUEST)
+    return HttpResponse(search.id)
+
+@csrf_exempt
+def create_order(request):
+    body = json.loads(request.body)
+    user = body['user']
+    pos_id = body['pos_id']
+    search = Users.objects.filter(id=user).first()
+    pos = Posylka(
+        user=search,
+        pos_id=pos_id,
+        status=False,
+        cityArrival_id=1,
+        cityDestination_id=1,
+    )
+    pos.save()
+    return HttpResponse("Ok")

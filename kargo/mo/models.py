@@ -11,6 +11,20 @@ class City(models.Model):
         verbose_name = 'Город'
         verbose_name_plural = 'Города'
 
+
+class Users(models.Model):
+    login = models.CharField(max_length=50, help_text='Логин')
+    password = models.CharField(max_length=50, help_text='Пароль')
+    name = models.CharField(max_length=50, help_text='Имя')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city', help_text='Город', null=True)
+    
+    class Meta:
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'
+
+    def __str__(self):
+        return self.name
+    
 class Posylka(models.Model):
     name = models.CharField(max_length=50, help_text='Название')
     pos_id = models.CharField(max_length=50, help_text='ID посылки')
@@ -20,6 +34,7 @@ class Posylka(models.Model):
     cost = models.DecimalField(decimal_places=2, max_digits=25, default=0, help_text='Цена')
     weight = models.DecimalField(decimal_places=2, max_digits=25, default=0, help_text='Вес')
     date = models.DateField(default=datetime.date.today)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name="client", help_text="Клиент", null=True)
 
     def __str__(self) -> str:
         return self.pos_id
@@ -37,17 +52,3 @@ class Question(models.Model):
         verbose_name = 'Вопрос'
         verbose_name_plural = 'Вопросы'
 
-
-class Users(models.Model):
-    login = models.CharField(max_length=50, help_text='Логин')
-    password = models.CharField(max_length=50, help_text='Пароль')
-    name = models.CharField(max_length=50, help_text='Имя')
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city', help_text='Город', null=True)
-    
-    class Meta:
-        verbose_name = 'Клиент'
-        verbose_name_plural = 'Клиенты'
-
-    def __str__(self):
-        return self.name
-    
