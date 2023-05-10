@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -80,8 +80,8 @@ def login(request):
     password = body['password']
     search = Users.objects.filter(login=login, password=password).first()
     if not search:
-        return HttpResponse("Bad Login or password", status=status.HTTP_400_BAD_REQUEST)
-    return HttpResponse(search.id)
+        return JsonResponse({"Msg": "Bad Login or password"}, status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse({'user': search.id})
 
 @csrf_exempt
 def create_order(request):
@@ -97,4 +97,4 @@ def create_order(request):
         cityDestination_id=1,
     )
     pos.save()
-    return HttpResponse("Ok")
+    return JsonResponse({'msg': "Ok"})
