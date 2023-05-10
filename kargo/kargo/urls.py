@@ -32,7 +32,7 @@ urlpatterns = [
     url('', include(cityRouter.urls), name='city'),
     url('', include(questionRouter.urls), name='question'),
     url('', include(posylkaRouter.urls), name='posylka'),
-    path('login/', login),
+    path('login', login),
     path('create_order/', create_order),
     path('admin/', admin.site.urls),
 ]
