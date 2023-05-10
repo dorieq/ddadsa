@@ -17,6 +17,7 @@ class Users(models.Model):
     password = models.CharField(max_length=50, help_text='Пароль')
     name = models.CharField(max_length=50, help_text='Имя')
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city', help_text='Город', null=True)
+    is_admin = models.BooleanField(default=False)
     
     class Meta:
         verbose_name = 'Клиент'

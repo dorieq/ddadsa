@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 
 from mo.models import City, Posylka, Question, Users
-from mo.serializers import CitySerializer, PosylkaSerializer, QuestionSerializer
+from mo.serializers import CitySerializer, PosylkaSerializer, QuestionSerializer, UserSerializer
 
 class CityViewSet(viewsets.ViewSet):
     queryset = City.objects.all()
@@ -23,6 +23,20 @@ class CityViewSet(viewsets.ViewSet):
         serializer = CitySerializer(user)
         return Response(serializer.data)
     
+
+class UserViewSet(viewsets.ViewSet):
+    queryset = Users.objects.all()
+
+    def list(self, request):
+        queryset = Users.objects.all()
+        serializer = UserSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Users.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
     
 class QuestionViewSet(viewsets.ViewSet):
     queryset = Question.objects.all()
@@ -98,3 +112,30 @@ def create_order(request):
     )
     pos.save()
     return JsonResponse({'msg': "Ok"})
+
+
+@csrf_exempt
+def create_detailed_order(request):
+    body = json.loads(request.body)
+    user = body['user']
+    pos_id = body['pos_id']
+    city1 = body['city_destination']
+    city2 = body['city_arrival']
+    status = body['status']
+    search = Users.objects.filter(id=user).first()
+    pos = Posylka(
+        user=search,
+        pos_id=pos_id,
+        status=status,
+        cityArrival_id=city1,
+        cityDestination_id=city2,
+    )
+    pos.save()
+    return JsonResponse({'msg': "Ok"})
+
+@csrf_exempt
+def is_admin(request):
+    body = json.loads(request.body)
+    user = body['user']
+    search = Users.objects.filter(id=user).first()
+    return JsonResponse({'admin': search.is_admin})
