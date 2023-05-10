@@ -56,10 +56,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://infriends.kz/',
-]
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'kargo.urls'
