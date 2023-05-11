@@ -139,3 +139,21 @@ def is_admin(request):
     user = body['user']
     search = Users.objects.filter(id=user).first()
     return JsonResponse({'admin': search.is_admin})
+
+@csrf_exempt
+def change_order(request):
+    body = json.loads(request.body)
+    pos_id = body['pos_id']
+    city1 = body['city_destination']
+    city2 = body['city_arrival']
+    status = body['status']
+    weight = body['weight']
+    query = Posylka.objects.filter(pos_id=pos_id).first()
+    cityD = City.objects.filter(id=city1).first()
+    cityA = City.objects.filter(id=city2).first()
+    query.cityDestination = cityD
+    query.cityArrival = cityA
+    query.status = status
+    query.weight = weight
+    query.save()
+    return JsonResponse({'msg': "Ok"})

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
-from mo.views import CityViewSet, QuestionViewSet, PosylkaViewSet, UserViewSet, login, create_order, create_detailed_order, is_admin
+from mo.views import CityViewSet, QuestionViewSet, PosylkaViewSet, UserViewSet, login, create_order, create_detailed_order, is_admin, change_order
 from rest_framework.routers import DefaultRouter
 
 cityRouter = DefaultRouter()
@@ -40,5 +40,6 @@ urlpatterns = [
     path('create_order/', create_order),
     path("create_detailed_order/", create_detailed_order),
     path("is_admin/", is_admin),
+    path("change/", change_order),
     path('admin/', admin.site.urls),
 ]
