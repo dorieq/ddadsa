@@ -146,14 +146,16 @@ def change_order(request):
     pos_id = body['pos_id']
     city1 = body['city_destination']
     city2 = body['city_arrival']
-    status = body['status']
+    statusq = body['status']
     weight = body['weight']
     query = Posylka.objects.filter(pos_id=pos_id).first()
+    if not query:
+        return JsonResponse({"Msg": "Not found"}, status=status.HTTP_400_BAD_REQUEST)
     cityD = City.objects.filter(id=city1).first()
     cityA = City.objects.filter(id=city2).first()
     query.cityDestination = cityD
     query.cityArrival = cityA
-    query.status = status
+    query.status = statusq
     query.weight = weight
     query.save()
     return JsonResponse({'msg': "Ok"})
